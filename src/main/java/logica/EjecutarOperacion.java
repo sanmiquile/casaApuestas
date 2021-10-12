@@ -1,8 +1,6 @@
 package logica;
 
 import javax.swing.*;
-import java.lang.reflect.Array;
-import java.util.Locale;
 
 public class EjecutarOperacion {
 
@@ -14,9 +12,20 @@ public class EjecutarOperacion {
 
     }
 
+
+    private static String [] obtenerOpcion() {
+        String textoOperacion ;
+
+        textoOperacion= JOptionPane.showInputDialog("Ingrese la operación deseada: ");
+        String[] palabras = textoOperacion.split(",");
+
+        return palabras;
+
+    }
+
     private static void buscarOperacion() {
 
-        String operacion;
+        String[] operacion;
        boolean centinela =true;
 
         do {
@@ -24,17 +33,17 @@ public class EjecutarOperacion {
             operacion= obtenerOpcion();
 
 
-            switch (operacion){
+            switch (operacion[0]){
                 case "CREAR_CUENTA":
                     //crearCuenta();
-                    System.out.println("crear cuenta");
+                    System.out.println("se creo una  cuenta");
                     break;
                 case "DEPOSITAR":
-                    System.out.println("Depositar valor");
+                    System.out.println("se realizo un deposito ");
                     break;
                 case "RETIRAR":
 
-                    System.out.println("Retirar valor");
+                    System.out.println("se realizo un retiro");
                     break;
                 case "APOSTAR":
 
@@ -71,15 +80,7 @@ public class EjecutarOperacion {
         }while(centinela );
     }
 
-    private static String obtenerOpcion() {
-        String textoOperacion;
 
-        textoOperacion= JOptionPane.showInputDialog("Ingrese la operación deseada: ");
-        String[] palabras = textoOperacion.split(",");
-
-        return palabras[0].toUpperCase();
-
-    }
 
 
 }

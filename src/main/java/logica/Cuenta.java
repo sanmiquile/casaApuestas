@@ -4,6 +4,7 @@ public class Cuenta extends Operacion {
     String nombreUsuario;
     int valorAsignado;
     double saldo;
+    private CasaApuesta casaApuesta;
 
     public Cuenta(String nombreUsuario, int valorAsignado, double saldo) {
         this.nombreUsuario = nombreUsuario;
