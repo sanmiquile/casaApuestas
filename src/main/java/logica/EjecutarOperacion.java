@@ -1,6 +1,7 @@
 package logica;
 
 import javax.swing.*;
+import java.util.Scanner;
 
 public class EjecutarOperacion {
 
@@ -8,54 +9,63 @@ public class EjecutarOperacion {
 
     public static void main(String[] args) {
 
+       //obtenerOpcion();
 
-       menuOperaciones();
+        menuOperaciones();
 
     }
 
 
-  //  private static String [] obtenerOpcion() {
-      //  String textoOperacion ;
+    private static String [] obtenerOpcion() {
+        String textoOperacion ;
 
-        //textoOperacion= JOptionPane.showInputDialog("Ingrese la operación deseada: ");
-        //String[] palabras = textoOperacion.split(",");
+        textoOperacion= JOptionPane.showInputDialog("Ingrese la operación deseada: ");
+        String[] palabras = textoOperacion.split(",");
 
-        //return palabras;
+        return palabras;
 
-    //}
+    }
 
     private static void menuOperaciones() {
-        int opcion = 0;
-        System.out.println("INGRESE LA OPERACION QUE DESEA REALIZAR \n 1. Crear cuenta\n 2.Depositar\n 3.Retirar\n 4.Apostar\n 5.Cancelar Cuenta\n 6.Consultar Saldo\n 7.Cerrar apuesta\n 8.Hacer reporte\n 9.Realizar Sorteo\n 10.Salir\n");
+
+        System.out.println("MENU DE OPERACIONES\n 1. Crear cuenta\n 2.Depositar\n 3.Retirar\n 4.Apostar\n 5.Cancelar Cuenta\n 6.Consultar Saldo\n 7.Cerrar apuesta\n 8.Hacer reporte\n 9.Realizar Sorteo\n 10.Salir\n");
+        int opcion=0;
 
         do {
-            opcion= Integer.parseInt(JOptionPane.showInputDialog("Ingrese la opcion deseada",opcion));
+
+            System.out.println("Ingrese la opcion deseada: ");
+            Scanner lectura = new Scanner (System.in);
+             opcion = lectura.nextInt();
+
             switch (opcion){
                 case 1:
-                    //crearCuenta();
+                    System.out.println("Ingrese su nombre y apellido: ");
+                    String nombre = capturarStringConsola();
+                    //crearCuenta(nombre);
+
                     System.out.println("se creo una  cuenta");
                     break;
-                case 2: //realizarDeposito();
+                case 2: //realizarDeposito(palabras);
                     System.out.println("se realizo un deposito ");
                     break;
                 case 3:
-                    // realizarRetiro();
+                    // realizarRetiro(palabras);
                     System.out.println("se realizo un retiro");
                     break;
                 case 4:
-                    // realizarApuesta();
+                    // realizarApuesta(palabras);
                     System.out.println("realizar apuesta");
                     break;
                 case 5:
-                    // cancelarCuenta();
+                    // cancelarCuenta(palabaras);
                     System.out.println("cancelar cuenta");
                     break;
                 case 6:
-                    // consultarSaldo();
+                    // consultarSaldo(palabras);
                     System.out.println("consultar saldo");
                     break;
                 case 7:
-                    // cerrarApuesta();
+                    // cerrarApuesta(palabras);
                     System.out.println("cerrar apuesta");
                     break;
                 case  8:
@@ -77,7 +87,24 @@ public class EjecutarOperacion {
         }while(opcion !=10);
     }
 
+    public static int capturarIntConsola(){
+    int opi=0;
+    Scanner lectura = new Scanner (System.in);
+    opi = lectura.nextInt();
+    return opi;
+}
+    public static double capturarDoubleConsola(){
+        double  opi=0;
+        System.out.println("Ingrese su nombre y apellido: ");
+        Scanner lectura = new Scanner (System.in);
+        opi = lectura.nextDouble();
+        return opi;
+    }
 
-
-
+    public static String capturarStringConsola(){
+        String  opi="";
+        Scanner lectura = new Scanner (System.in);
+        opi = lectura.next();
+        return opi;
+    }
 }
