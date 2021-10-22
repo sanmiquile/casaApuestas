@@ -1,15 +1,19 @@
 package logica;
 
 public class Cuenta extends Operacion {
-    String nombreUsuario;
-    int valorAsignado;
-    double saldo;
-    private CasaApuesta casaApuesta;
+    private String nombreUsuario;
+    private int numeroCuenta = -1;
+    private double saldo;
 
-    public Cuenta(String nombreUsuario, int valorAsignado, double saldo) {
+
+    public Cuenta(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
-        this.valorAsignado = valorAsignado;
-        this.saldo = saldo;
+        numeroCuenta++;
+        saldo = 0.0;
+    }
+
+    public void depositar() {
+        saldo = saldo + cantidadDinero;
     }
 
     public String getNombreUsuario() {
@@ -20,12 +24,12 @@ public class Cuenta extends Operacion {
         this.nombreUsuario = nombreUsuario;
     }
 
-    public int getValorAsignado() {
-        return valorAsignado;
+    public int getNumeroCuenta() {
+        return numeroCuenta;
     }
 
-    public void setValorAsignado(int valorAsignado) {
-        this.valorAsignado = valorAsignado;
+    public void setNumeroCuenta(int numeroCuenta) {
+        this.numeroCuenta = numeroCuenta;
     }
 
     public double getSaldo() {

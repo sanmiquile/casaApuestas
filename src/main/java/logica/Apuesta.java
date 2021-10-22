@@ -1,8 +1,9 @@
 package logica;
 
 public class Apuesta {
-    char tipoApuesta;
-    int numeroApuesta;
+    private int numeroCuenta;
+    private char tipoApuesta;
+    private int numeroApuesta;
 
     public Apuesta(char tipoApuesta, int numeroApuesta) {
         this.tipoApuesta = tipoApuesta;
@@ -23,6 +24,14 @@ public class Apuesta {
 
     public void setNumeroApuesta(int numeroApuesta) {
         this.numeroApuesta = numeroApuesta;
+    }
+
+    public int getNumeroCuenta() {
+        return numeroCuenta;
+    }
+
+    public void setNumeroCuenta(int numeroCuenta) {
+        this.numeroCuenta = numeroCuenta;
     }
 }
 
