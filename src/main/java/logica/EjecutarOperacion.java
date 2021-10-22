@@ -3,6 +3,8 @@ package logica;
 import javax.swing.*;
 import java.util.Scanner;
 
+import static logica.CasaApuesta.crearCuenta;
+
 public class EjecutarOperacion {
 
 
@@ -15,16 +17,6 @@ public class EjecutarOperacion {
 
     }
 
-
-    private static String [] obtenerOpcion() {
-        String textoOperacion ;
-
-        textoOperacion= JOptionPane.showInputDialog("Ingrese la operación deseada: ");
-        String[] palabras = textoOperacion.split(",");
-
-        return palabras;
-
-    }
 
     private static void menuOperaciones() {
 
@@ -41,7 +33,8 @@ public class EjecutarOperacion {
                 case 1:
                     System.out.println("Ingrese su nombre y apellido: ");
                     String nombre = capturarStringConsola();
-                    //crearCuenta(nombre);
+
+                    crearCuenta(nombre);
 
                     System.out.println("se creo una  cuenta");
                     break;
