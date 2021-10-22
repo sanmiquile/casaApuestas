@@ -12,9 +12,6 @@ public class Cuenta extends Operacion {
         this.saldo = saldo;
     }
 
-    public void depositar() {
-        saldo = saldo + cantidadDinero;
-    }
 
     public String getNombreUsuario() {
         return nombreUsuario;
