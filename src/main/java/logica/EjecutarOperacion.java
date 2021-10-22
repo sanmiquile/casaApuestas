@@ -11,7 +11,7 @@ public class EjecutarOperacion {
 
     public static void main(String[] args) {
 
-       //obtenerOpcion();
+
 
         menuOperaciones();
 
@@ -33,10 +33,9 @@ public class EjecutarOperacion {
                 case 1:
                     System.out.println("Ingrese su nombre y apellido: ");
                     String nombre = capturarStringConsola();
+                    String cuenta= crearCuenta(nombre);
 
-                    crearCuenta(nombre);
-
-                    System.out.println("se creo una  cuenta");
+                    System.out.println("se creo una  cuenta"+cuenta);
                     break;
                 case 2: //realizarDeposito(palabras);
                     System.out.println("se realizo un deposito ");

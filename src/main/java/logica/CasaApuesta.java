@@ -10,7 +10,7 @@ public class CasaApuesta {
     static  private HashMap<String,Cuenta> mapCuentasUsuario = new HashMap<String,Cuenta>();
     static  private Cuenta cuenta;
      static private int numCuenta;
-     static private double saldo;
+     static private double saldo=0.0;
 
 
 
@@ -19,43 +19,37 @@ public class CasaApuesta {
         boolean  bandera= false;
         cuenta = new Cuenta(infoUsuario, numCuenta, saldo);
         String[] palabras = infoUsuario.split(",");
-        String nuevoInfoUsiario=palabras[1].trim().toUpperCase();
+        String nuevoInfoUsuario=palabras[1].trim().toUpperCase();
 
 
         Set<String> nombresUsuario=mapCuentasUsuario.keySet();
-
+        System.out.println("validacion de la informacion usuario"+ nuevoInfoUsuario);
         for (String key: nombresUsuario){
 
-            if (key.equals(nuevoInfoUsiario)){
+            if (key.equals(nuevoInfoUsuario)){
                // Mensaje  que confirma que un usuario con el mismo nombre ya  a creado una cuenta
-                mensaje="";
+                  mensaje="La cuenta no ha sido creada, ya se encuentra registrado un usuario con el mismo nombre";
                   bandera= true;
+                  return mensaje;
 
             }
             else if (bandera ==false){
                 numCuenta++;
                 cuenta.getSaldo();
                 cuenta.getNumeroCuenta();
-                mapCuentasUsuario.put(nuevoInfoUsiario,cuenta);
+                mapCuentasUsuario.put(nuevoInfoUsuario,cuenta);
 
-                mensaje="";
-
-
+                 mensaje="La cuenta se ha creado exitosamente /n "+ "[Server] Cliente: "+ nuevoInfoUsuario +"," +numCuenta +","+ saldo;
+                System.out.println(mapCuentasUsuario);
+               return mensaje;
             }
 
 
         }
 
 
-
-
-
-
-
-
-
-
         return mensaje;
+
     }
 
 
