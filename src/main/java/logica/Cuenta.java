@@ -5,7 +5,7 @@ public class Cuenta extends Operacion {
     private int numeroCuenta = -1;
     private double saldo;
 
-
+ // este metodo permite  numerar las cuentas
     public Cuenta(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
         numeroCuenta++;
