@@ -2,7 +2,7 @@ package logica.operaciones;
 
 import logica.CasaApuesta;
 import logica.exceptions.CuentaNoExisteException;
-import logica.exceptions.DepositoRetiroNoValido;
+import logica.exceptions.DepositoRetiroNoValidoException;
 
 public class Despositar implements Operacion{
 
@@ -13,7 +13,7 @@ public class Despositar implements Operacion{
             double valor = Double.parseDouble( parametros[2].trim() );
             CasaApuesta.getInstance().depositar(numCuenta,valor);
             return "Depósito exitoso en cuenta de ahorros "+numCuenta;
-        } catch (CuentaNoExisteException | DepositoRetiroNoValido e) {
+        } catch (CuentaNoExisteException | DepositoRetiroNoValidoException e) {
             return e.getMessage();
         }
     }

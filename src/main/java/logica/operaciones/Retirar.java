@@ -2,7 +2,7 @@ package logica.operaciones;
 
 import logica.CasaApuesta;
 import logica.exceptions.CuentaNoExisteException;
-import logica.exceptions.DepositoRetiroNoValido;
+import logica.exceptions.DepositoRetiroNoValidoException;
 import logica.exceptions.FondosInsuficientesException;
 
 public class Retirar implements Operacion{
@@ -14,7 +14,7 @@ public class Retirar implements Operacion{
             double valor = Double.parseDouble( parametros[2].trim() );
             CasaApuesta.getInstance().retirar(numCuenta,valor);
             return "Retiro exitoso en cuenta de ahorros "+numCuenta;
-        } catch (CuentaNoExisteException | DepositoRetiroNoValido | FondosInsuficientesException e) {
+        } catch (CuentaNoExisteException | DepositoRetiroNoValidoException | FondosInsuficientesException e) {
             return e.getMessage();
         }
     }

@@ -1,7 +1,7 @@
 package logica;
 import logica.exceptions.CuentaExisteException;
 import logica.exceptions.CuentaNoExisteException;
-import logica.exceptions.DepositoRetiroNoValido;
+import logica.exceptions.DepositoRetiroNoValidoException;
 import logica.exceptions.FondosInsuficientesException;
 
 import java.util.HashMap;
@@ -14,7 +14,6 @@ import java.util.Optional;
 public class CasaApuesta {
     // Se debe crear las listas y hashMap de la informaqcion de los usuarios y las apuestas.
     private Map<String,Cuenta> mapCuentasUsuario;
-    private Map<Integer,Cuenta> mapCuentasNumero;
     private int numCuenta;
 
     public CasaApuesta() {
@@ -47,18 +46,18 @@ public class CasaApuesta {
         return numCuenta++;
     }
 
-    public void depositar(int numeroCuenta,double deposito) throws CuentaNoExisteException, DepositoRetiroNoValido {
+    public void depositar(int numeroCuenta,double deposito) throws CuentaNoExisteException, DepositoRetiroNoValidoException {
         if(deposito < 0 ){
-            throw new DepositoRetiroNoValido();
+            throw new DepositoRetiroNoValidoException();
         }
         Optional<Cuenta> optional = obtenerCuentaByNumeroCuenta(numeroCuenta);
         Cuenta cuenta = optional.orElseThrow( ()->new CuentaNoExisteException(numeroCuenta) );
         cuenta.incrementarSaldo( deposito );
     }
 
-    public void retirar(int numeroCuenta,double retiro) throws CuentaNoExisteException, DepositoRetiroNoValido, FondosInsuficientesException {
+    public void retirar(int numeroCuenta,double retiro) throws CuentaNoExisteException, DepositoRetiroNoValidoException, FondosInsuficientesException {
         if(retiro <= 0 ){
-            throw new DepositoRetiroNoValido();
+            throw new DepositoRetiroNoValidoException();
         }
         Optional<Cuenta> optional = obtenerCuentaByNumeroCuenta(numeroCuenta);
         Cuenta cuenta = optional.orElseThrow( ()->new CuentaNoExisteException(numeroCuenta) );
