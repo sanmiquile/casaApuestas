@@ -53,10 +53,10 @@ public class CasaApuesta {
     }
 
 
-    public static  String depositarDinero(String inforUsuario){
+    public static  String depositar(String inforUsuario){
 
         String mensaje=" ";
-        String palabras[]=inforUsuario.split(",");
+       String palabras[]=inforUsuario.split(",");
         boolean bandera=false;
         String nombreUsuario= palabras[1];
         int numCueenta = Integer.parseInt(palabras[2]);
@@ -73,7 +73,7 @@ public class CasaApuesta {
 
                  double saldoUsuario= auxiliar.getSaldo();
                 auxiliar.setSaldo(saldoUsuario + deposito);
-                mensaje = " Deposito exitoso \n" + "[Server] Cuenta: " + cuenta + " - Nuevo saldo: "
+                mensaje = "[Server] Depósito exitoso \n" + "Cuenta de Ahorros: " + cuenta + " - Nuevo saldo: "
                         + auxiliar.getSaldo();
                 System.out.println(mapCuentasUsuario);
                 bandera = true;
@@ -82,26 +82,13 @@ public class CasaApuesta {
 
         if (bandera == false) {
 
-            mensaje = " No hay cuentas registradas con el numero ingresado";
+            mensaje = "ERROR: No hay cuentas registradas con el número ingresado";
         }
         return mensaje;
     }
 
 
 
-
-
-
-
-
-
-
-
 }
 
-
-
-
-
-}
 

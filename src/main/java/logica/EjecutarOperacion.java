@@ -3,6 +3,7 @@ package logica;
 import java.util.Scanner;
 
 import static logica.CasaApuesta.crearCuenta;
+import static logica.CasaApuesta.depositar;
 
 public class EjecutarOperacion {
 
@@ -38,7 +39,13 @@ public class EjecutarOperacion {
 
                     break;
                 case 2: //realizarDeposito(palabras);
-                    System.out.println("se realizo un deposito ");
+                    System.out.println("Ingrese la cuenta a depositar");
+                    String cuenta= capturarStringConsola();
+                    System.out.println("Ingrese el saldo a depositar");
+                    String deposito= capturarStringConsola();
+                    String mensajeAlServidor2= "DEPOSITAR,"+cuenta+","+deposito;
+                    System.out.println("Mensaje al servidor: "+mensajeAlServidor2);
+                    mandarMensaje(mensajeAlServidor2);
                     break;
                 case 3:
                     // realizarRetiro(palabras);
@@ -92,6 +99,15 @@ public class EjecutarOperacion {
                         System.out.println("se creó una  cuenta"+cuenta);
                         break;
 
+                    case "DEPOSITAR":
+                        String cuenta2=palabras[1].trim().toUpperCase();
+                        String saldo=palabras[2].trim().toUpperCase();
+                        String palabraConcatenada =""; //Donde se manda incluyendo el nombre del Usario
+                        //BUSCAR NOMBRE USUARIO
+                        // CONCATENAR NUEVA PALABRA ARREGLO
+                        String deposito= depositar(palabraConcatenada);
+                        System.out.println("[SERVER] se depositó: "+deposito+ " de la cuenta "+cuenta2);
+                        break;
                     default:
                         System.out.println("No se encontró la operación");
                 }
