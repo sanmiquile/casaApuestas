@@ -1,8 +1,10 @@
 package logica;
 
-public class Cuenta extends Operacion {
-    private String nombreUsuario;
-    private int numeroCuenta = -1;
+import logica.exceptions.FondosInsuficientesException;
+
+public class Cuenta  {
+    private final String nombreUsuario;
+    private final int numeroCuenta;
     private double saldo;
 
  // Constructor de la clase
@@ -12,28 +14,26 @@ public class Cuenta extends Operacion {
         this.saldo = saldo;
     }
 
-
     public String getNombreUsuario() {
         return nombreUsuario;
-    }
-
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
     }
 
     public int getNumeroCuenta() {
         return numeroCuenta;
     }
 
-    public void setNumeroCuenta(int numeroCuenta) {
-        this.numeroCuenta = numeroCuenta;
-    }
-
     public double getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
+    public synchronized void incrementarSaldo(double deposito) {
+        saldo += deposito;
+    }
+
+    public synchronized void restarSaldo(double retiro) throws FondosInsuficientesException {
+        if(retiro>saldo){
+            throw new FondosInsuficientesException(numeroCuenta);
+        }
+        saldo=saldo-retiro;
     }
 }

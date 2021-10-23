@@ -1,93 +1,79 @@
 package logica;
+import logica.exceptions.CuentaExisteException;
+import logica.exceptions.CuentaNoExisteException;
+import logica.exceptions.DepositoRetiroNoValido;
+import logica.exceptions.FondosInsuficientesException;
+
 import java.util.HashMap;
-import java.util.Set;
+import java.util.Map;
+import java.util.Optional;
 /*
  * Esta clase sera el servidor que contendra toda la informacion de operaciones del proyecto.
  */
 
 public class CasaApuesta {
     // Se debe crear las listas y hashMap de la informaqcion de los usuarios y las apuestas.
-    static  private HashMap<String,Cuenta> mapCuentasUsuario = new HashMap<String,Cuenta>();
-    static  private Cuenta cuenta;
-     static private int numCuenta;
-     static private double saldo=0.0;
+    private Map<String,Cuenta> mapCuentasUsuario;
+    private Map<Integer,Cuenta> mapCuentasNumero;
+    private int numCuenta;
 
+    public CasaApuesta() {
+        mapCuentasUsuario = new HashMap<String,Cuenta>();
+        numCuenta = 0;
+        try {
+            crearCuenta("Casa Apuestas");
+        } catch (CuentaExisteException e) {
 
-    public static String crearCuenta (String nombre ) {
-        String mensaje=" ";
+        }
+    }
+
+    private static final CasaApuesta instance = new CasaApuesta();
+
+    public static CasaApuesta getInstance(){
+        return instance;
+    }
+
+    public synchronized Cuenta crearCuenta (String nombre ) throws CuentaExisteException {
         boolean  bandera = false;
-        cuenta = new Cuenta(nombre, numCuenta, saldo);
-
-     //   String[] palabras = infoUsuario.split(",");
-     //   String nuevoInfoUsuario=palabras[1].trim().toUpperCase();
-
-        bandera = true;
-        Set<String> nombresUsuario=mapCuentasUsuario.keySet();
-        System.out.println("validacion de la informacion usuario "+ nombre);
-        for (String key: nombresUsuario){
-        //permite comparar la llave de los objetos del hashmap
-            if (key.equals(nombre)){
-               // Mensaje  que confirma que un usuario con el mismo nombre ya  a creado una cuenta
-                  mensaje="La cuenta no ha sido creada, ya se encuentra registrado un usuario con el mismo nombre";
-
-                  return mensaje;
-
-            }
-            else if (bandera ==false){
-                numCuenta++;
-                cuenta.getSaldo();
-                cuenta.getNumeroCuenta();
-                mapCuentasUsuario.put(nombre,cuenta);
-
-                 mensaje="La cuenta se ha creado exitosamente /n "+ "[Server] Cliente: "+ nombre +"," +numCuenta +","+ saldo;
-                System.out.println(mapCuentasUsuario);
-               return mensaje;
-            }
-
-
+        if( mapCuentasUsuario.containsKey(nombre) ){
+            throw new CuentaExisteException(nombre);
         }
-
-
-        return mensaje;
-
+        Cuenta cuenta = new Cuenta(nombre, obtenerNumeroCuenta(), 0);
+        mapCuentasUsuario.put(nombre,cuenta);
+        return cuenta;
     }
 
-
-    public static  String depositar(String inforUsuario){
-
-        String mensaje=" ";
-       String palabras[]=inforUsuario.split(",");
-        boolean bandera=false;
-        String nombreUsuario= palabras[1];
-        int numCueenta = Integer.parseInt(palabras[2]);
-         double   deposito= Double.parseDouble(palabras[3]);
-        Cuenta auxiliar = new Cuenta(nombreUsuario,numCueenta,deposito);
-        Set<String> nombresUsuario= mapCuentasUsuario.keySet();
-
-
-        for (String key : nombresUsuario) {
-
-            auxiliar = mapCuentasUsuario.get(key);
-
-            if ( numCueenta== auxiliar.getNumeroCuenta()) {
-
-                 double saldoUsuario= auxiliar.getSaldo();
-                auxiliar.setSaldo(saldoUsuario + deposito);
-                mensaje = "[Server] Depósito exitoso \n" + "Cuenta de Ahorros: " + cuenta + " - Nuevo saldo: "
-                        + auxiliar.getSaldo();
-                System.out.println(mapCuentasUsuario);
-                bandera = true;
-            }
-        }
-
-        if (bandera == false) {
-
-            mensaje = "ERROR: No hay cuentas registradas con el número ingresado";
-        }
-        return mensaje;
+    private int obtenerNumeroCuenta() {
+        return numCuenta++;
     }
 
+    public void depositar(int numeroCuenta,double deposito) throws CuentaNoExisteException, DepositoRetiroNoValido {
+        if(deposito < 0 ){
+            throw new DepositoRetiroNoValido();
+        }
+        Optional<Cuenta> optional = obtenerCuentaByNumeroCuenta(numeroCuenta);
+        Cuenta cuenta = optional.orElseThrow( ()->new CuentaNoExisteException(numeroCuenta) );
+        cuenta.incrementarSaldo( deposito );
+    }
 
+    public void retirar(int numeroCuenta,double retiro) throws CuentaNoExisteException, DepositoRetiroNoValido, FondosInsuficientesException {
+        if(retiro <= 0 ){
+            throw new DepositoRetiroNoValido();
+        }
+        Optional<Cuenta> optional = obtenerCuentaByNumeroCuenta(numeroCuenta);
+        Cuenta cuenta = optional.orElseThrow( ()->new CuentaNoExisteException(numeroCuenta) );
+        cuenta.restarSaldo( retiro );
+    }
+    private Optional<Cuenta> obtenerCuentaByNumeroCuenta(int numeroCuenta) {
+//        for (Cuenta cuenta: mapCuentasUsuario.values()    ) {
+//            if( cuenta.getNumeroCuenta() == numeroCuenta){
+//                return Optional.of(cuenta);
+//            }
+//        }
+//        return Optional.empty();
+
+        return mapCuentasUsuario.values().stream().filter(cuenta -> cuenta.getNumeroCuenta()==numeroCuenta).findFirst();
+    }
 
 }
 
