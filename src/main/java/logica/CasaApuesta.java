@@ -1,8 +1,5 @@
 package logica;
-import logica.exceptions.CuentaExisteException;
-import logica.exceptions.CuentaNoExisteException;
-import logica.exceptions.DepositoRetiroNoValidoException;
-import logica.exceptions.FondosInsuficientesException;
+import logica.exceptions.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -74,6 +71,18 @@ public class CasaApuesta {
         return mapCuentasUsuario.values().stream().filter(cuenta -> cuenta.getNumeroCuenta()==numeroCuenta).findFirst();
     }
 
+
+    public  synchronized void cancelarCuenta(int numCuenta) throws CuentaNoExisteException, CuentaConSaldoException {
+
+        Optional<Cuenta> optional = obtenerCuentaByNumeroCuenta(numCuenta);
+        Cuenta cuenta = optional.orElseThrow( ()->new CuentaNoExisteException(numCuenta) );
+        if (cuenta.getSaldo()!=0){
+            throw new CuentaConSaldoException();
+
+        }
+        mapCuentasUsuario.remove(cuenta.getNombreUsuario());
+
+    }
 }
 
 

@@ -1,9 +1,6 @@
 package logica;
 
-import logica.operaciones.CrearCuenta;
-import logica.operaciones.Despositar;
-import logica.operaciones.Operacion;
-import logica.operaciones.Retirar;
+import logica.operaciones.*;
 
 import java.util.Scanner;
 
@@ -23,8 +20,10 @@ public class EjecutarOperacion {
         System.out.println(ejecutarOperacion.mandarMensaje("DEPOSITAR, 3, 50000"));
         System.out.println(ejecutarOperacion.mandarMensaje("DEPOSITAR, 1, -50000"));
         System.out.println(ejecutarOperacion.mandarMensaje("RETIRAR, 2, 50000 "));
-        System.out.println(ejecutarOperacion.mandarMensaje("RETIRAR, 1, 50000 "));
-
+        System.out.println(ejecutarOperacion.mandarMensaje("RETIRAR, 1, 10000 "));
+        System.out.println(ejecutarOperacion.mandarMensaje("CANCELAR_CUENTA,3"));
+        System.out.println(ejecutarOperacion.mandarMensaje("CANCELAR_CUENTA,1"));
+        System.out.println(ejecutarOperacion.mandarMensaje("CANCELAR_CUENTA,2"));
     }
 
 
@@ -114,8 +113,15 @@ public class EjecutarOperacion {
             case "RETIRAR":
                 operacion = new Retirar();
                 break;
+
+            case "CANCELAR_CUENTA":
+
+                operacion=new CancelarCuenta();
+                break;
             default:
                 return "No se encontró la operación";
+
+
         }
         return operacion.ejecutar(parametros);
     }
