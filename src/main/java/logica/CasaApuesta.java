@@ -13,23 +13,23 @@ public class CasaApuesta {
      static private double saldo=0.0;
 
 
-
-    public static String crearCuenta (String infoUsuario ) {
+    public static String crearCuenta (String nombre ) {
         String mensaje=" ";
-        boolean  bandera= false;
-        cuenta = new Cuenta(infoUsuario, numCuenta, saldo);
-        String[] palabras = infoUsuario.split(",");
-        String nuevoInfoUsuario=palabras[1].trim().toUpperCase();
+        boolean  bandera = false;
+        cuenta = new Cuenta(nombre, numCuenta, saldo);
 
+     //   String[] palabras = infoUsuario.split(",");
+     //   String nuevoInfoUsuario=palabras[1].trim().toUpperCase();
 
+        bandera = true;
         Set<String> nombresUsuario=mapCuentasUsuario.keySet();
-        System.out.println("validacion de la informacion usuario"+ nuevoInfoUsuario);
+        System.out.println("validacion de la informacion usuario "+ nombre);
         for (String key: nombresUsuario){
-
-            if (key.equals(nuevoInfoUsuario)){
+        //permite comparar la llave de los objetos del hashmap
+            if (key.equals(nombre)){
                // Mensaje  que confirma que un usuario con el mismo nombre ya  a creado una cuenta
                   mensaje="La cuenta no ha sido creada, ya se encuentra registrado un usuario con el mismo nombre";
-                  bandera= true;
+
                   return mensaje;
 
             }
@@ -37,9 +37,9 @@ public class CasaApuesta {
                 numCuenta++;
                 cuenta.getSaldo();
                 cuenta.getNumeroCuenta();
-                mapCuentasUsuario.put(nuevoInfoUsuario,cuenta);
+                mapCuentasUsuario.put(nombre,cuenta);
 
-                 mensaje="La cuenta se ha creado exitosamente /n "+ "[Server] Cliente: "+ nuevoInfoUsuario +"," +numCuenta +","+ saldo;
+                 mensaje="La cuenta se ha creado exitosamente /n "+ "[Server] Cliente: "+ nombre +"," +numCuenta +","+ saldo;
                 System.out.println(mapCuentasUsuario);
                return mensaje;
             }

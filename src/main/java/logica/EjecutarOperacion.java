@@ -1,6 +1,5 @@
 package logica;
 
-import javax.swing.*;
 import java.util.Scanner;
 
 import static logica.CasaApuesta.crearCuenta;
@@ -13,12 +12,12 @@ public class EjecutarOperacion {
 
 
 
-        menuOperaciones();
+        menuCliente();
 
     }
 
 
-    private static void menuOperaciones() {
+    private static void menuCliente() {
 
         System.out.println("MENU DE OPERACIONES\n 1. Crear cuenta\n 2.Depositar\n 3.Retirar\n 4.Apostar\n 5.Cancelar Cuenta\n 6.Consultar Saldo\n 7.Cerrar apuesta\n 8.Hacer reporte\n 9.Realizar Sorteo\n 10.Salir\n");
         int opcion=0;
@@ -33,9 +32,10 @@ public class EjecutarOperacion {
                 case 1:
                     System.out.println("Ingrese su nombre y apellido: ");
                     String nombre = capturarStringConsola();
-                    String cuenta= crearCuenta(nombre);
+                    String mensajeAlServidor= "CREAR_CUENTA,"+nombre;
+                    System.out.println("Mensaje al servidor: "+mensajeAlServidor);
+                    mandarMensaje(mensajeAlServidor);
 
-                    System.out.println("se creo una  cuenta"+cuenta);
                     break;
                 case 2: //realizarDeposito(palabras);
                     System.out.println("se realizo un deposito ");
@@ -79,6 +79,27 @@ public class EjecutarOperacion {
         }while(opcion !=10);
     }
 
+    private static void mandarMensaje(String mensajeAlServidor) {
+
+        String[] palabras = mensajeAlServidor.split(",");
+        String metodo=palabras[0].trim().toUpperCase();
+
+
+                switch (metodo){
+                    case "CREAR_CUENTA":
+                        String nombre=palabras[1].trim().toUpperCase();
+                        String cuenta= crearCuenta(nombre);
+                        System.out.println("se creó una  cuenta"+cuenta);
+                        break;
+
+                    default:
+                        System.out.println("No se encontró la operación");
+                }
+        }
+
+
+
+
     public static int capturarIntConsola(){
     int opi=0;
     Scanner lectura = new Scanner (System.in);
@@ -96,7 +117,9 @@ public class EjecutarOperacion {
     public static String capturarStringConsola(){
         String  opi="";
         Scanner lectura = new Scanner (System.in);
-        opi = lectura.next();
+        opi = lectura.nextLine();
+        System.out.println ("Entrada recibida por teclado es: \"" + opi +"\"");
         return opi;
     }
+
 }
