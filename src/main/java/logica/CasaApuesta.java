@@ -53,6 +53,26 @@ public class CasaApuesta {
     }
 
 
+    public static  String depositarDinero(String inforUsuario){
+
+        String mensaje=" ";
+        String palabras
+        boolean bandera=false;
+        auxCuenta= new Cuenta();
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
 
 
 }
