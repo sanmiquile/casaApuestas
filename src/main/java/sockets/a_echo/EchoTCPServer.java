@@ -21,6 +21,7 @@ public class EchoTCPServer {
 	   
 	   while(true) {
 		   ServerSideSocket = listener.accept();
+           System.out.println("LLEGO CLIENTE ...");
 		   EchoTCPServerProtocol.protocol(ServerSideSocket);
 	   }
 	 

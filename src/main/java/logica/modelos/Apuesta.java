@@ -1,4 +1,4 @@
-package logica;
+package logica.modelos;
 
 import logica.exceptions.NumeroInvalidoException;
 import logica.exceptions.TipoApuestaException;

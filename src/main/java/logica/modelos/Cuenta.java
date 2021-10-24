@@ -1,4 +1,4 @@
-package logica;
+package logica.modelos;
 
 import logica.exceptions.FondosInsuficientesException;
 

@@ -1,7 +1,6 @@
 package logica.operaciones;
 
-import logica.CasaApuesta;
-import logica.exceptions.ApuestasCerradasException;
+import logica.modelos.CasaApuesta;
 import logica.exceptions.NumeroParametrosInvalidoException;
 
 public class Reportar implements Operacion{

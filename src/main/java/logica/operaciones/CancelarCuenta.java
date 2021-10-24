@@ -1,9 +1,7 @@
 package logica.operaciones;
 
-import logica.CasaApuesta;
-import logica.Cuenta;
+import logica.modelos.CasaApuesta;
 import logica.exceptions.CuentaConSaldoException;
-import logica.exceptions.CuentaExisteException;
 import logica.exceptions.CuentaNoExisteException;
 import logica.exceptions.NumeroParametrosInvalidoException;
 

@@ -1,4 +1,4 @@
-package logica;
+package logica.modelos;
 
 import logica.exceptions.*;
 
@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 /*
  * Esta clase sera el servidor que contendra toda la informacion de operaciones del proyecto.
  */

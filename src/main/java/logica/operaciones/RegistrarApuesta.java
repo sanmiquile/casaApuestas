@@ -1,6 +1,6 @@
 package logica.operaciones;
 
-import logica.CasaApuesta;
+import logica.modelos.CasaApuesta;
 import logica.exceptions.*;
 
 public class RegistrarApuesta implements Operacion{
