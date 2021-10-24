@@ -1,22 +1,19 @@
 package logica.operaciones;
 
 import logica.CasaApuesta;
-import logica.Cuenta;
-import logica.exceptions.CuentaConSaldoException;
-import logica.exceptions.CuentaExisteException;
 import logica.exceptions.CuentaNoExisteException;
 import logica.exceptions.NumeroParametrosInvalidoException;
 
-public class CancelarCuenta implements Operacion{
+public class ConsultarSaldo implements Operacion{
 
     @Override
     public String ejecutar(String[] parametros) {
         try {
             validarParametros(2, parametros.length);
             int numCuenta=Integer.parseInt(parametros[1]);
-            CasaApuesta.getInstance().cancelarCuenta(numCuenta);
-            return "Cuenta "+ numCuenta+" cancelada exitosamente";
-        } catch (CuentaNoExisteException | CuentaConSaldoException | NumeroParametrosInvalidoException e) {
+            double saldo = CasaApuesta.getInstance().consultarSaldo(numCuenta);
+            return "Saldo "+saldo;
+        } catch (CuentaNoExisteException | NumeroParametrosInvalidoException e) {
             return e.getMessage();
         }
     }

@@ -24,6 +24,20 @@ public class EjecutarOperacion {
         System.out.println(ejecutarOperacion.mandarMensaje("CANCELAR_CUENTA,3"));
         System.out.println(ejecutarOperacion.mandarMensaje("CANCELAR_CUENTA,1"));
         System.out.println(ejecutarOperacion.mandarMensaje("CANCELAR_CUENTA,2"));
+        System.out.println(ejecutarOperacion.mandarMensaje("CANCELAR_CUENTA"));
+        System.out.println(ejecutarOperacion.mandarMensaje("REGISTRAR_APUESTA, 1, A, 3258"));
+        System.out.println(ejecutarOperacion.mandarMensaje("REGISTRAR_APUESTA, 1, B, 3258"));
+        System.out.println(ejecutarOperacion.mandarMensaje("REGISTRAR_APUESTA, 1, C, 3258"));
+        System.out.println(ejecutarOperacion.mandarMensaje("REGISTRAR_APUESTA, 1, A, 325"));
+        System.out.println(ejecutarOperacion.mandarMensaje("REGISTRAR_APUESTA, 1, B, 32"));
+        System.out.println(ejecutarOperacion.mandarMensaje("REGISTRAR_APUESTA, 1, C, 3"));
+        System.out.println(ejecutarOperacion.mandarMensaje("REGISTRAR_APUESTA, 1, A, 1325"));
+        System.out.println(ejecutarOperacion.mandarMensaje("REGISTRAR_APUESTA, 1, B, 132"));
+        System.out.println(ejecutarOperacion.mandarMensaje("REGISTRAR_APUESTA, 1, C, 13"));
+        System.out.println(ejecutarOperacion.mandarMensaje("CERRAR"));
+        System.out.println(ejecutarOperacion.mandarMensaje("CERRAR"));
+        System.out.println(ejecutarOperacion.mandarMensaje("REGISTRAR_APUESTA, 1, C, 13"));
+        System.out.println(ejecutarOperacion.mandarMensaje("REPORTAR"));
     }
 
 
@@ -118,6 +132,19 @@ public class EjecutarOperacion {
 
                 operacion=new CancelarCuenta();
                 break;
+            case "REGISTRAR_APUESTA":
+                operacion= new RegistrarApuesta();
+                break;
+            case "CONSULTAR_SALDO":
+                operacion= new ConsultarSaldo();
+                break;
+            case "CERRAR":
+                operacion= new Cerrar();
+                break;
+            case "REPORTAR":
+                operacion= new Reportar();
+                break;
+
             default:
                 return "No se encontró la operación";
 
