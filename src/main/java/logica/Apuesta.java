@@ -48,6 +48,15 @@ public class Apuesta {
         return numeroApuesta;
     }
 
+    public boolean esGanador(String numeroGanador){
+        // si el ganador es 1234
+        // si el es tipo A 5678 (longitud 4) 4 - 4 = 0 una subcadena numero desde la 0 hasta el fin seria 1234
+        // si el es tipo B 678 (longitud 3) 4 - 3 = 1 una subcadena numero desde la 1 hasta el fin seria 234
+        // si el es tipo C  78 (longitud 2) 4 - 2 = 2 una subcadena numero desde la 1 hasta el fin seria 34
+        String numeroGanadorAuxiliar = numeroGanador.substring( 4 - numeroApuesta.length() );
+        return numeroGanadorAuxiliar.equals(numeroApuesta);
+    }
+
     @Override
     public String toString() {
         return cuenta.getNombreUsuario() +","+tipoApuesta+","+numeroApuesta;

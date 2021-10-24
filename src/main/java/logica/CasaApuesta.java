@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 /*
  * Esta clase sera el servidor que contendra toda la informacion de operaciones del proyecto.
  */
@@ -42,9 +43,15 @@ public class CasaApuesta {
        - En este metodo se valida la existencia del nombre del usuario en la lista, arroja una excepcion si el nombre ya existe.
          sino retorna el objeto cuenta
      */
-    public synchronized Cuenta crearCuenta(String nombre) throws CuentaExisteException {
-        boolean bandera = false;
-        if (mapCuentasUsuario.containsKey(nombre)) {
+    /*
+       - Metodo sincronizado que  evita que dos  usuarios creen la cuenta al mismo tiempo
+       - En este metodo se valida la existencia del nombre del usuario en la lista, arroja una excepcion si el nombre ya existe.
+         sino retorna el objeto cuenta
+     */
+
+    public synchronized Cuenta crearCuenta (String nombre ) throws CuentaExisteException {
+        boolean  bandera = false;
+        if( mapCuentasUsuario.containsKey(nombre) ){
             throw new CuentaExisteException(nombre);
         }
         Cuenta cuenta = new Cuenta(nombre, obtenerNumeroCuenta(), 0);
@@ -91,6 +98,7 @@ public class CasaApuesta {
 //            }
 //        }
 //        return Optional.empty();
+        // Opcional tiene o no tiene a la cuenta
         return mapCuentasUsuario.values().stream()
                 .filter(cuenta -> cuenta.getNumeroCuenta() == numeroCuenta)
                 .findFirst().orElseThrow(() -> new CuentaNoExisteException(numeroCuenta));
@@ -152,19 +160,31 @@ public class CasaApuesta {
                     break;
             }
         }
-        stringBuilder.append(tipoA + " Apuestas tipo A, total: " + (tipoA * Apuesta.VALOR_APUESTA) + "\n");
-        stringBuilder.append(tipoB + " Apuestas tipo B, total: " + (tipoB * Apuesta.VALOR_APUESTA) + "\n");
-        stringBuilder.append(tipoC + " Apuestas tipo C, total: " + (tipoC * Apuesta.VALOR_APUESTA) + "\n");
+        stringBuilder.append(tipoA+" Apuestas tipo A, total: "+ (tipoA*Apuesta.VALOR_APUESTA) +"\n");
+        stringBuilder.append(tipoB+" Apuestas tipo B, total: "+ (tipoB*Apuesta.VALOR_APUESTA) +"\n");
+        stringBuilder.append(tipoC+" Apuestas tipo C, total: "+ (tipoC*Apuesta.VALOR_APUESTA) +"\n");
         return stringBuilder.toString();
     }
 
-    public String sortear(int numGanador) {
+    public String sortear(String numGanador) throws FondosInsuficientesException {
         //se debe validar  cuantos ganadores hay por  el numero ganador  y dividir el premio en partes iguales
+
+        List<Apuesta> apuestasGanadorasTipoA = new ArrayList<>();
+        List<Apuesta> apuestasGanadorasTipoB = new ArrayList<>();
+        List<Apuesta> apuestasGanadorasTipoC = new ArrayList<>();
+
         int tipoA = 0;
         int tipoB = 0;
         int tipoC = 0;
-        for (Apuesta apuesta : apuestas) {
 
+        for (Apuesta apuesta : apuestas) {
+            if( apuesta.esGanador(numGanador) ){
+                switch (apuesta.getTipoApuesta()){
+                    case 'A': apuestasGanadorasTipoA.add(apuesta); break;
+                    case 'B': apuestasGanadorasTipoB.add(apuesta); break;
+                    case 'C': apuestasGanadorasTipoC.add(apuesta); break;
+                }
+            }
             switch (apuesta.getTipoApuesta()) {
                 case 'A':
                     tipoA++;
@@ -176,38 +196,31 @@ public class CasaApuesta {
                     tipoC++;
                     break;
             }
+
         }
+//        apuestasGanadorasTipoA = apuestas.stream()
+//                .filter( apuesta -> apuesta.getTipoApuesta()=='A')
+//                .filter( apuesta -> apuesta.esGanador(numGanador)).collect(Collectors.toList());
+
         double pagoTipoA = ((tipoA * Apuesta.VALOR_APUESTA) * 80) / 100;
         double pagoTipoB = ((tipoB * Apuesta.VALOR_APUESTA) * 70) / 100;
         double pagoTipoC = ((tipoC * Apuesta.VALOR_APUESTA) * 60) / 100;
 
-        return " A " + pagoTipoA + "B " + pagoTipoB + "c " + pagoTipoC;
+        pagarGanadores(pagoTipoA,apuestasGanadorasTipoA);
+        pagarGanadores(pagoTipoB,apuestasGanadorasTipoB);
+        pagarGanadores(pagoTipoC,apuestasGanadorasTipoB);
 
-        //List<Cuenta> ganadores= new ArrayList<Cuenta>();
-
-
-       // for (Apuesta apuesta : apuestas) {
-
-            //int numApuesta=Integer.parseInt(apuesta.getNumeroApuesta());
-           // if (numApuesta==numGanador) {
-
-
-                /*switch (apuesta) {
-
-                    case 'A':
-                        canGanadorA++;
-                        break;
-                    case 'B':
-                        canGanadorB++;
-                        break;
-                    case 'C':
-                        canGanadorC++;
-                        break;
-                }
-                         */
-
-            //}
-        //}
+        return "";
     }
+
+    private void pagarGanadores(double pago, List<Apuesta> apuestasGanadoras) throws FondosInsuficientesException {
+        double premio = pago / apuestasGanadoras.size();
+        for (Apuesta apuesta: apuestasGanadoras ) {
+            apuesta.getCuenta().incrementarSaldo(premio);
+        }
+        obterCuentaCasa().restarSaldo(pago);
+    }
+
+
 }
 

@@ -1,6 +1,7 @@
 package logica.operaciones;
 
 import logica.CasaApuesta;
+import logica.exceptions.FondosInsuficientesException;
 import logica.exceptions.NumeroParametrosInvalidoException;
 
 public class Sortear implements Operacion{
@@ -8,9 +9,9 @@ public class Sortear implements Operacion{
     public String ejecutar(String[] parametros) {
         try {
             validarParametros(2, parametros.length);
-            int numGanador = Integer.parseInt( parametros[1].trim() );
+            String numGanador =  parametros[1].trim() ;
             return CasaApuesta.getInstance().sortear(numGanador);
-        } catch (NumeroParametrosInvalidoException e) {
+        } catch (NumeroParametrosInvalidoException | FondosInsuficientesException e) {
             return e.getMessage();
         }
     }
