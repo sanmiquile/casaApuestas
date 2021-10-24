@@ -26,10 +26,16 @@ public class Cuenta  {
         return saldo;
     }
 
+    /*
+       Metodo que le suma el monto de dinero depositado al saldo
+     */
+
     public synchronized void incrementarSaldo(double deposito) {
         saldo += deposito;
     }
-
+    /*
+       Metodo que le resta al saldo el monto de dinero retirado
+     */
     public synchronized void restarSaldo(double retiro) throws FondosInsuficientesException {
         if(retiro>saldo){
             throw new FondosInsuficientesException(numeroCuenta);

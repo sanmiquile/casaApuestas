@@ -8,6 +8,10 @@ import logica.exceptions.NumeroParametrosInvalidoException;
 public class Despositar implements Operacion{
 
     @Override
+    /*
+       Metodo que valida que los parametros recibidos sean los requeridos, si es asi se realiza el deposito
+       sino se lanza la excepcion que corresponda
+     */
     public String ejecutar(String[] parametros) {
         try {
             validarParametros(3, parametros.length);

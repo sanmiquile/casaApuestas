@@ -18,7 +18,7 @@ public class CasaApuesta {
     private List<Apuesta> apuestas;
     private boolean apuestasCerradas;
 
-
+     // se inicializan los datos
     public CasaApuesta() {
         mapCuentasUsuario = new HashMap<String,Cuenta>();
         apuestas = new ArrayList<>();
@@ -37,6 +37,12 @@ public class CasaApuesta {
         return instance;
     }
 
+    /*
+       - Metodo sincronizado que  evita que dos  usuarios creen la cuenta al mismo tiempo
+       - En este metodo se valida la existencia del nombre del usuario en la lista, arroja una excepcion si el nombre ya existe.
+         sino retorna el objeto cuenta
+     */
+
     public synchronized Cuenta crearCuenta (String nombre ) throws CuentaExisteException {
         boolean  bandera = false;
         if( mapCuentasUsuario.containsKey(nombre) ){
@@ -47,10 +53,18 @@ public class CasaApuesta {
         return cuenta;
     }
 
+
+    /*
+      Metodo que nos permite generar un numero de cuenta diferente
+     */
     private int obtenerNumeroCuenta() {
         return indiceNumCuenta++;
     }
 
+    /*
+       Metodo que valida que el valor del deposito sea mayor a 0, si es asi se obtiene el numero de la cuenta y
+       al saldo de la cuenta se le incrementa el valor del deposito, de no ser asi nos arrojara una excepcion
+     */
     public void depositar(int numeroCuenta,double deposito) throws CuentaNoExisteException, DepositoRetiroNoValidoException {
         if(deposito < 0 ){
             throw new DepositoRetiroNoValidoException();
@@ -67,6 +81,10 @@ public class CasaApuesta {
         cuenta.restarSaldo( retiro );
     }
 
+
+    /*
+       Metodo que retorna de la lista de usuarios los  datos filtrados por el numero de cuenta y muetra el primero
+     */
     private Cuenta obtenerCuentaByNumeroCuenta(int numeroCuenta) throws CuentaNoExisteException {
 //        for (Cuenta cuenta: mapCuentasUsuario.values()    ) {
 //            if( cuenta.getNumeroCuenta() == numeroCuenta){
@@ -74,6 +92,7 @@ public class CasaApuesta {
 //            }
 //        }
 //        return Optional.empty();
+        // Opcional tiene o no tiene a la cuenta
         return mapCuentasUsuario.values().stream()
                 .filter(cuenta -> cuenta.getNumeroCuenta()==numeroCuenta)
                 .findFirst().orElseThrow( ()->new CuentaNoExisteException(numeroCuenta) );
