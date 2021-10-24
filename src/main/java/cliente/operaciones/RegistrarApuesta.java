@@ -10,12 +10,12 @@ public class RegistrarApuesta extends TCPClientProtocol {
     public void ejecutar() throws IOException {
         System.out.println("Ingrese el numero de la cuenta: ");
         String cuenta = Console.capturarStringConsola();
-        System.out.println("Ingrese el tipo de apuesta que desea realizar :");
+        System.out.println("Ingrese el tipo de apuesta que desea realizar (A,B,C):");
         String tipo = Console.capturarStringConsola();
         System.out.println("Ingrese el numero ");
         String numero = Console.capturarStringConsola();
 
-        String mensajeAlServidor = "APOSTAR," + cuenta + "," + tipo + "," +numero ;
+        String mensajeAlServidor = "REGISTRAR_APUESTA," + cuenta + "," + tipo + "," +numero ;
         toNetwork.println(mensajeAlServidor);
 
         String fromServer=fromNetwork.readLine();

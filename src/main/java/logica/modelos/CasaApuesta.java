@@ -217,9 +217,9 @@ public class CasaApuesta {
 
 
         return "Ganadores :  Premio total \n"
-                + tipoA + " Tipo A     $" + pagoTipoA + "\n"
-                + tipoB + " Tipo B     $" + pagoTipoB + "\n"
-                + tipoC + " Tipo C     $" + pagoTipoC + "\n" ;
+                + apuestasGanadorasTipoA.size() + " Tipo A     $" + pagoTipoA + "\n"
+                + apuestasGanadorasTipoB.size() + " Tipo B     $" + pagoTipoB + "\n"
+                + apuestasGanadorasTipoC.size() + " Tipo C     $" + pagoTipoC + "\n" ;
     }
 
     private void pagarGanadores(double pago, List<Apuesta> apuestasGanadoras) throws FondosInsuficientesException {

@@ -12,7 +12,7 @@ public class RegistrarApuesta implements Operacion{
             int numCuenta = Integer.parseInt( parametros[1].trim() );
             char tipoApuesta = parametros[2].trim().charAt(0);
             CasaApuesta.getInstance().apostar(numCuenta,tipoApuesta,parametros[3].trim());
-            return "Depósito exitoso en cuenta de ahorros "+numCuenta;
+            return "Apuesta exitosa";
         } catch (CuentaNoExisteException | NumeroParametrosInvalidoException | TipoApuestaException | NumeroInvalidoException | FondosInsuficientesException | ApuestasCerradasException e) {
             return e.getMessage();
         }

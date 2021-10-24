@@ -22,7 +22,6 @@ public final class Console {
         String opi = "";
         Scanner lectura = new Scanner(System.in);
         opi = lectura.nextLine();
-        System.out.println("Entrada recibida por teclado es: \"" + opi + "\"");
         return opi;
     }
 }

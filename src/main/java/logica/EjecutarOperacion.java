@@ -60,10 +60,11 @@ public class EjecutarOperacion {
                 break;
 
             case "CANCELAR_CUENTA":
-
+            case "CANCELAR":
                 operacion=new CancelarCuenta();
                 break;
             case "REGISTRAR_APUESTA":
+            case "APOSTAR":
                 operacion= new RegistrarApuesta();
                 break;
             case "CONSULTAR_SALDO":

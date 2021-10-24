@@ -23,7 +23,8 @@ public class ClienteModoText {
         TCPClient tcpClient = new TCPClient();
         do {
             TCPClientProtocol tcpClientProtocol = null;
-            System.out.println("\nMENU DE OPERACIONES\n 1. Crear cuenta\n 2.Depositar\n 3.Retirar\n 4.Apostar\n 5.Cancelar Cuenta\n 6.Consultar Saldo\n 7.Cerrar apuesta\n 8.Hacer reporte\n 9.Realizar Sorteo\n 10.Salir\n");
+            System.out.println("\nMENU DE OPERACIONES\n 1. Crear cuenta\t 2.Depositar\t 3.Retirar\t 4.Apostar\t 5.Cancelar Cuenta" +
+                    "\n 6.Consultar Saldo\t 7.Cerrar apuesta\t 8.Hacer reporte\t 9.Realizar Sorteo\t 10.Salir\n");
             System.out.println("Ingrese la opcion deseada: ");
             Scanner lectura = new Scanner(System.in);
             opcion = lectura.nextInt();
@@ -63,8 +64,7 @@ public class ClienteModoText {
                     break;
                 case 9:
                     // generarSorteo;
-                    System.out.println("Realizando sorteo");
-
+                    tcpClientProtocol = new Sortear();
                     break;
                 case 10:
 
