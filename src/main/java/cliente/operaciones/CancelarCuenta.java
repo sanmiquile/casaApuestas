@@ -5,18 +5,14 @@ import cliente.utils.Console;
 
 import java.io.IOException;
 
-public class Consultar extends TCPClientProtocol {
-
+public class CancelarCuenta extends TCPClientProtocol {
     public void ejecutar() throws IOException {
-
-        System.out.println("Ingrese la cuenta a  consultar: ");
+        System.out.println("\nIngrese la cuenta a cancelar: ");
         String cuenta = Console.capturarStringConsola();
-
-        String mensajeAlServidor = "CONSULTAR_SALDO," + cuenta ;
+        String mensajeAlServidor = "CANCELAR_CUENTA," + cuenta;
         toNetwork.println(mensajeAlServidor);
+
         String fromServer=fromNetwork.readLine();
         System.out.println(fromServer);
     }
-
-
 }

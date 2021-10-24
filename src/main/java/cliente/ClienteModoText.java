@@ -1,11 +1,9 @@
 package cliente;
 
-import cliente.operaciones.CrearCuenta;
-import cliente.operaciones.Depositar;
+import cliente.operaciones.*;
 import cliente.sockets.TCPClient;
 import cliente.sockets.TCPClientProtocol;
 import cliente.utils.Console;
-import logica.operaciones.RegistrarApuesta;
 
 import java.util.Scanner;
 
@@ -21,12 +19,11 @@ public class ClienteModoText {
 
     private void menuCliente() throws Exception {
 
-
         int opcion = 0;
         TCPClient tcpClient = new TCPClient();
         do {
             TCPClientProtocol tcpClientProtocol = null;
-            System.out.println("MENU DE OPERACIONES\n 1. Crear cuenta\n 2.Depositar\n 3.Retirar\n 4.Apostar\n 5.Cancelar Cuenta\n 6.Consultar Saldo\n 7.Cerrar apuesta\n 8.Hacer reporte\n 9.Realizar Sorteo\n 10.Salir\n");
+            System.out.println("\nMENU DE OPERACIONES\n 1. Crear cuenta\n 2.Depositar\n 3.Retirar\n 4.Apostar\n 5.Cancelar Cuenta\n 6.Consultar Saldo\n 7.Cerrar apuesta\n 8.Hacer reporte\n 9.Realizar Sorteo\n 10.Salir\n");
             System.out.println("Ingrese la opcion deseada: ");
             Scanner lectura = new Scanner(System.in);
             opcion = lectura.nextInt();
@@ -41,7 +38,7 @@ public class ClienteModoText {
                     break;
                 case 3:
                     // realizarRetiro(palabras);
-                    System.out.println("se realizo un retiro");
+                    tcpClientProtocol = new Retirar();
                     break;
                 case 4:
                     // realizarApuesta(palabras);
@@ -50,11 +47,11 @@ public class ClienteModoText {
                     break;
                 case 5:
                     // cancelarCuenta(palabaras);
-                    System.out.println("cancelar cuenta");
+                    tcpClientProtocol = new CancelarCuenta();
                     break;
                 case 6:
                     // consultarSaldo(palabras);
-                    System.out.println("consultar saldo");
+                    tcpClientProtocol = new Consultar();
                     break;
                 case 7:
                     // cerrarApuesta(palabras);
