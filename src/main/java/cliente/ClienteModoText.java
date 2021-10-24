@@ -56,7 +56,7 @@ public class ClienteModoText {
                     break;
                 case 7:
                     // cerrarApuesta(palabras);
-                    System.out.println("cerrar apuesta");
+                    tcpClientProtocol = new Cerrar();
                     break;
                 case 8:
                     //realizarReporte;
