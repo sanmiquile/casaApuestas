@@ -173,9 +173,11 @@ public class CasaApuesta {
         List<Apuesta> apuestasGanadorasTipoB = new ArrayList<>();
         List<Apuesta> apuestasGanadorasTipoC = new ArrayList<>();
 
+        // las siguientes variables son para determinar la cantidad de apuestas realizadas por tipo
         int tipoA = 0;
         int tipoB = 0;
         int tipoC = 0;
+
 
         for (Apuesta apuesta : apuestas) {
             if( apuesta.esGanador(numGanador) ){
@@ -185,6 +187,12 @@ public class CasaApuesta {
                     case 'C': apuestasGanadorasTipoC.add(apuesta); break;
                 }
             }
+             // otra forma de obtener la lista de ganadores por tipo
+             // apuestasGanadorasTipoA = apuestas.stream()
+     //               .filter( apuesta -> apuesta.getTipoApuesta()=='A')
+//                    .filter( apuesta -> apuesta.esGanador(numGanador)).collect(Collectors.toList());
+
+
             switch (apuesta.getTipoApuesta()) {
                 case 'A':
                     tipoA++;
@@ -198,9 +206,7 @@ public class CasaApuesta {
             }
 
         }
-//        apuestasGanadorasTipoA = apuestas.stream()
-//                .filter( apuesta -> apuesta.getTipoApuesta()=='A')
-//                .filter( apuesta -> apuesta.esGanador(numGanador)).collect(Collectors.toList());
+
 
         double pagoTipoA = ((tipoA * Apuesta.VALOR_APUESTA) * 80) / 100;
         double pagoTipoB = ((tipoB * Apuesta.VALOR_APUESTA) * 70) / 100;
@@ -210,7 +216,11 @@ public class CasaApuesta {
         pagarGanadores(pagoTipoB,apuestasGanadorasTipoB);
         pagarGanadores(pagoTipoC,apuestasGanadorasTipoB);
 
-        return "";
+
+        return "Ganadores :  Premio total \n"
+                + tipoA + " Tipo A     $" + pagoTipoA + "\n"
+                + tipoB + " Tipo B     $" + pagoTipoB + "\n"
+                + tipoC + " Tipo C     $" + pagoTipoC + "\n" ;
     }
 
     private void pagarGanadores(double pago, List<Apuesta> apuestasGanadoras) throws FondosInsuficientesException {

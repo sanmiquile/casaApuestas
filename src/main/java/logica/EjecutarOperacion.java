@@ -99,6 +99,7 @@ public class EjecutarOperacion {
                 case 9:
                     // generarSorteo;
                     System.out.println("Realizando sorteo");
+
                     break;
                 case 10:
 
