@@ -20,7 +20,7 @@ public class CasaApuesta {
 
      // se inicializan los datos
     public CasaApuesta() {
-        mapCuentasUsuario = new HashMap<String,Cuenta>();
+        mapCuentasUsuario = new HashMap<String, Cuenta>();
         apuestas = new ArrayList<>();
         indiceNumCuenta = 0;
         apuestasCerradas = false;
@@ -33,23 +33,17 @@ public class CasaApuesta {
 
     private static final CasaApuesta instance = new CasaApuesta();
 
-    public static CasaApuesta getInstance(){
+    public static CasaApuesta getInstance() {
         return instance;
     }
 
-    /*
-       - Metodo sincronizado que  evita que dos  usuarios creen la cuenta al mismo tiempo
-       - En este metodo se valida la existencia del nombre del usuario en la lista, arroja una excepcion si el nombre ya existe.
-         sino retorna el objeto cuenta
-     */
-
-    public synchronized Cuenta crearCuenta (String nombre ) throws CuentaExisteException {
-        boolean  bandera = false;
-        if( mapCuentasUsuario.containsKey(nombre) ){
+    public synchronized Cuenta crearCuenta(String nombre) throws CuentaExisteException {
+        boolean bandera = false;
+        if (mapCuentasUsuario.containsKey(nombre)) {
             throw new CuentaExisteException(nombre);
         }
         Cuenta cuenta = new Cuenta(nombre, obtenerNumeroCuenta(), 0);
-        mapCuentasUsuario.put(nombre,cuenta);
+        mapCuentasUsuario.put(nombre, cuenta);
         return cuenta;
     }
 
@@ -61,6 +55,8 @@ public class CasaApuesta {
         return indiceNumCuenta++;
     }
 
+    public void depositar(int numeroCuenta, double deposito) throws CuentaNoExisteException, DepositoRetiroNoValidoException {
+        if (deposito < 0) {
     /*
        Metodo que valida que el valor del deposito sea mayor a 0, si es asi se obtiene el numero de la cuenta y
        al saldo de la cuenta se le incrementa el valor del deposito, de no ser asi nos arrojara una excepcion
@@ -70,15 +66,15 @@ public class CasaApuesta {
             throw new DepositoRetiroNoValidoException();
         }
         Cuenta cuenta = obtenerCuentaByNumeroCuenta(numeroCuenta);
-        cuenta.incrementarSaldo( deposito );
+        cuenta.incrementarSaldo(deposito);
     }
 
-    public void retirar(int numeroCuenta,double retiro) throws CuentaNoExisteException, DepositoRetiroNoValidoException, FondosInsuficientesException {
-        if(retiro <= 0 ){
+    public void retirar(int numeroCuenta, double retiro) throws CuentaNoExisteException, DepositoRetiroNoValidoException, FondosInsuficientesException {
+        if (retiro <= 0) {
             throw new DepositoRetiroNoValidoException();
         }
         Cuenta cuenta = obtenerCuentaByNumeroCuenta(numeroCuenta);
-        cuenta.restarSaldo( retiro );
+        cuenta.restarSaldo(retiro);
     }
 
 
@@ -92,16 +88,15 @@ public class CasaApuesta {
 //            }
 //        }
 //        return Optional.empty();
-        // Opcional tiene o no tiene a la cuenta
         return mapCuentasUsuario.values().stream()
-                .filter(cuenta -> cuenta.getNumeroCuenta()==numeroCuenta)
-                .findFirst().orElseThrow( ()->new CuentaNoExisteException(numeroCuenta) );
+                .filter(cuenta -> cuenta.getNumeroCuenta() == numeroCuenta)
+                .findFirst().orElseThrow(() -> new CuentaNoExisteException(numeroCuenta));
     }
 
 
-    public  synchronized void cancelarCuenta(int numCuenta) throws CuentaNoExisteException, CuentaConSaldoException {
+    public synchronized void cancelarCuenta(int numCuenta) throws CuentaNoExisteException, CuentaConSaldoException {
         Cuenta cuenta = obtenerCuentaByNumeroCuenta(numCuenta);
-        if (cuenta.getSaldo()!=0){
+        if (cuenta.getSaldo() != 0) {
             throw new CuentaConSaldoException();
 
         }
@@ -110,17 +105,17 @@ public class CasaApuesta {
     }
 
     public void apostar(int numCuenta, char tipoApuesta, String numero) throws CuentaNoExisteException, TipoApuestaException, NumeroInvalidoException, FondosInsuficientesException, ApuestasCerradasException {
-        if(apuestasCerradas){
+        if (apuestasCerradas) {
             throw new ApuestasCerradasException();
         }
         Cuenta cuenta = obtenerCuentaByNumeroCuenta(numCuenta);
-        Apuesta apuesta = new Apuesta(cuenta,tipoApuesta,numero);
+        Apuesta apuesta = new Apuesta(cuenta, tipoApuesta, numero);
         cuenta.restarSaldo(Apuesta.VALOR_APUESTA);
         obterCuentaCasa().incrementarSaldo(Apuesta.VALOR_APUESTA);
         apuestas.add(apuesta);
     }
 
-    private Cuenta obterCuentaCasa(){
+    private Cuenta obterCuentaCasa() {
         return mapCuentasUsuario.get(NOMBRE_CASA);
     }
 
@@ -129,7 +124,7 @@ public class CasaApuesta {
     }
 
     public void cerrar() throws ApuestasCerradasException {
-        if(apuestasCerradas){
+        if (apuestasCerradas) {
             throw new ApuestasCerradasException();
         }
         apuestasCerradas = true;
@@ -140,19 +135,78 @@ public class CasaApuesta {
         int tipoA = 0;
         int tipoB = 0;
         int tipoC = 0;
-        for (Apuesta apuesta:apuestas ) {
-            stringBuilder.append(apuesta.toString()+"\n");
-            switch (apuesta.getTipoApuesta()){
-                case 'A': tipoA++; break;
-                case 'B': tipoB++; break;
-                case 'C': tipoC++; break;
+        for (Apuesta apuesta : apuestas) {
+            stringBuilder.append(apuesta.toString() + "\n");
+            switch (apuesta.getTipoApuesta()) {
+                case 'A':
+                    tipoA++;
+                    break;
+                case 'B':
+                    tipoB++;
+                    break;
+                case 'C':
+                    tipoC++;
+                    break;
             }
         }
-        stringBuilder.append(tipoA+" Apuestas tipo A, total: "+ (tipoA*Apuesta.VALOR_APUESTA) +"\n");
-        stringBuilder.append(tipoB+" Apuestas tipo B, total: "+ (tipoB*Apuesta.VALOR_APUESTA) +"\n");
-        stringBuilder.append(tipoC+" Apuestas tipo C, total: "+ (tipoC*Apuesta.VALOR_APUESTA) +"\n");
+        stringBuilder.append(tipoA + " Apuestas tipo A, total: " + (tipoA * Apuesta.VALOR_APUESTA) + "\n");
+        stringBuilder.append(tipoB + " Apuestas tipo B, total: " + (tipoB * Apuesta.VALOR_APUESTA) + "\n");
+        stringBuilder.append(tipoC + " Apuestas tipo C, total: " + (tipoC * Apuesta.VALOR_APUESTA) + "\n");
         return stringBuilder.toString();
     }
-}
 
+    public String sortear(int numGanador) {
+        //se debe validar  cuantos ganadores hay por  el numero ganador  y dividir el premio en partes iguales
+        int tipoA = 0;
+        int tipoB = 0;
+        int tipoC = 0;
+        for (Apuesta apuesta : apuestas) {
+
+            switch (apuesta.getTipoApuesta()) {
+                case 'A':
+                    tipoA++;
+                    break;
+                case 'B':
+                    tipoB++;
+                    break;
+                case 'C':
+                    tipoC++;
+                    break;
+            }
+        }
+        double pagoTipoA = ((tipoA * Apuesta.VALOR_APUESTA) * 80) / 100;
+        double pagoTipoB = ((tipoB * Apuesta.VALOR_APUESTA) * 70) / 100;
+        double pagoTipoC = ((tipoC * Apuesta.VALOR_APUESTA) * 60) / 100;
+
+        return " A " + pagoTipoA + "B " + pagoTipoB + "c " + pagoTipoC;
+        int canGanadorA=0;
+        int canGanadorB = 0;
+        int canGanadorC = 0;
+        List<Cuenta> ganadores= new ArrayList<Cuenta>();
+
+
+        for (Apuesta apuesta : apuestas) {
+
+            int numApuesta=Integer.parseInt(apuesta.getNumeroApuesta());
+            if (numApuesta==numGanador) {
+
+
+                switch (apuesta.g) {
+
+                    case 'A':
+                        canGanadorA++;
+                        break;
+                    case 'B':
+                        canGanadorB++;
+                        break;
+                    case 'C':
+                        canGanadorC++;
+                        break;
+                }
+
+
+            }
+        }
+    }
+}
 

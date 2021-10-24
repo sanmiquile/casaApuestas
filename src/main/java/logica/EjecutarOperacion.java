@@ -38,6 +38,8 @@ public class EjecutarOperacion {
         System.out.println(ejecutarOperacion.mandarMensaje("CERRAR"));
         System.out.println(ejecutarOperacion.mandarMensaje("REGISTRAR_APUESTA, 1, C, 13"));
         System.out.println(ejecutarOperacion.mandarMensaje("REPORTAR"));
+        System.out.println(ejecutarOperacion.mandarMensaje("SORTEO,3258"));
+
     }
 
 
@@ -143,6 +145,10 @@ public class EjecutarOperacion {
                 break;
             case "REPORTAR":
                 operacion= new Reportar();
+                break;
+            case "SORTEO":
+
+                operacion=new Sortear();
                 break;
 
             default:
