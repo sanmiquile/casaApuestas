@@ -37,6 +37,11 @@ public class CasaApuesta {
         return instance;
     }
 
+    /*
+       - Metodo sincronizado que  evita que dos  usuarios creen la cuenta al mismo tiempo
+       - En este metodo se valida la existencia del nombre del usuario en la lista, arroja una excepcion si el nombre ya existe.
+         sino retorna el objeto cuenta
+     */
     public synchronized Cuenta crearCuenta(String nombre) throws CuentaExisteException {
         boolean bandera = false;
         if (mapCuentasUsuario.containsKey(nombre)) {
@@ -177,19 +182,17 @@ public class CasaApuesta {
         double pagoTipoC = ((tipoC * Apuesta.VALOR_APUESTA) * 60) / 100;
 
         return " A " + pagoTipoA + "B " + pagoTipoB + "c " + pagoTipoC;
-        int canGanadorA=0;
-        int canGanadorB = 0;
-        int canGanadorC = 0;
-        List<Cuenta> ganadores= new ArrayList<Cuenta>();
+
+        //List<Cuenta> ganadores= new ArrayList<Cuenta>();
 
 
-        for (Apuesta apuesta : apuestas) {
+       // for (Apuesta apuesta : apuestas) {
 
-            int numApuesta=Integer.parseInt(apuesta.getNumeroApuesta());
-            if (numApuesta==numGanador) {
+            //int numApuesta=Integer.parseInt(apuesta.getNumeroApuesta());
+           // if (numApuesta==numGanador) {
 
 
-                switch (apuesta.g) {
+                /*switch (apuesta) {
 
                     case 'A':
                         canGanadorA++;
@@ -201,10 +204,10 @@ public class CasaApuesta {
                         canGanadorC++;
                         break;
                 }
+                         */
 
-
-            }
-        }
+            //}
+        //}
     }
 }
 
