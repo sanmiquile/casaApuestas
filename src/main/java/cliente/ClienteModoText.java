@@ -59,7 +59,7 @@ public class ClienteModoText {
                     break;
                 case 8:
                     //realizarReporte;
-                    System.out.println("hacer reporte");
+                    tcpClientProtocol = new Reportar();
                     break;
                 case 9:
                     // generarSorteo;

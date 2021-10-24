@@ -23,7 +23,7 @@ public class EchoTCPServerProtocol {
 		String answer= ejecutarOperacion.ejecutar(message);
 		System.out.println("RESPONDIENDO: "+answer);
 		toNetwork.println(answer);
-
+		socket.close();
 	}
 	private static void createStreams(Socket socket)throws IOException{
 		
