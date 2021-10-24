@@ -55,8 +55,6 @@ public class CasaApuesta {
         return indiceNumCuenta++;
     }
 
-    public void depositar(int numeroCuenta, double deposito) throws CuentaNoExisteException, DepositoRetiroNoValidoException {
-        if (deposito < 0) {
     /*
        Metodo que valida que el valor del deposito sea mayor a 0, si es asi se obtiene el numero de la cuenta y
        al saldo de la cuenta se le incrementa el valor del deposito, de no ser asi nos arrojara una excepcion
