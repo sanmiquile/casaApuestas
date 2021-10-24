@@ -5,6 +5,7 @@ import cliente.operaciones.Depositar;
 import cliente.sockets.TCPClient;
 import cliente.sockets.TCPClientProtocol;
 import cliente.utils.Console;
+import logica.operaciones.RegistrarApuesta;
 
 import java.util.Scanner;
 
@@ -44,7 +45,8 @@ public class ClienteModoText {
                     break;
                 case 4:
                     // realizarApuesta(palabras);
-                    System.out.println("realizar apuesta");
+                    tcpClientProtocol = new RegistrarApuesta();
+
                     break;
                 case 5:
                     // cancelarCuenta(palabaras);
