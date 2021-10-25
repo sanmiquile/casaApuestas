@@ -2,7 +2,8 @@ package logica;
 
 import logica.operaciones.*;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
 
 
 public class EjecutarOperacion {
@@ -13,36 +14,36 @@ public class EjecutarOperacion {
 
      //   menuCliente();
         EjecutarOperacion ejecutarOperacion = new EjecutarOperacion();
-        System.out.println(ejecutarOperacion.ejecutar("CREAR_CUENTA,Juan Salgado"));
-        System.out.println(ejecutarOperacion.ejecutar("CREAR_CUENTA,Juan Salgado"));
-        System.out.println(ejecutarOperacion.ejecutar("CREAR_CUENTA, Andres Serna"));
-        System.out.println(ejecutarOperacion.ejecutar("DEPOSITAR, 1, 50000"));
-        System.out.println(ejecutarOperacion.ejecutar("DEPOSITAR, 3, 50000"));
-        System.out.println(ejecutarOperacion.ejecutar("DEPOSITAR, 1, -50000"));
-        System.out.println(ejecutarOperacion.ejecutar("RETIRAR, 2, 50000 "));
-        System.out.println(ejecutarOperacion.ejecutar("RETIRAR, 1, 10000 "));
-        System.out.println(ejecutarOperacion.ejecutar("CANCELAR_CUENTA,3"));
-        System.out.println(ejecutarOperacion.ejecutar("CANCELAR_CUENTA,1"));
-        System.out.println(ejecutarOperacion.ejecutar("CANCELAR_CUENTA,2"));
-        System.out.println(ejecutarOperacion.ejecutar("CANCELAR_CUENTA"));
-        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, A, 3258"));
-        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, B, 3258"));
-        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, C, 3258"));
-        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, A, 325"));
-        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, B, 32"));
-        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, C, 3"));
-        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, A, 1325"));
-        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, B, 132"));
-        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, C, 13"));
-        System.out.println(ejecutarOperacion.ejecutar("CERRAR"));
-        System.out.println(ejecutarOperacion.ejecutar("CERRAR"));
-        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, C, 13"));
-        System.out.println(ejecutarOperacion.ejecutar("REPORTAR"));
-        System.out.println(ejecutarOperacion.ejecutar("SORTEO,3258"));
+//        System.out.println(ejecutarOperacion.ejecutar("CREAR_CUENTA,Juan Salgado", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("CREAR_CUENTA,Juan Salgado", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("CREAR_CUENTA, Andres Serna", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("DEPOSITAR, 1, 50000", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("DEPOSITAR, 3, 50000", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("DEPOSITAR, 1, -50000", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("RETIRAR, 2, 50000 ", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("RETIRAR, 1, 10000 ", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("CANCELAR_CUENTA,3", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("CANCELAR_CUENTA,1", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("CANCELAR_CUENTA,2", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("CANCELAR_CUENTA", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, A, 3258", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, B, 3258", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, C, 3258", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, A, 325", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, B, 32", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, C, 3", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, A, 1325", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, B, 132", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, C, 13", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("CERRAR", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("CERRAR", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("REGISTRAR_APUESTA, 1, C, 13", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("REPORTAR", salida, entrada));
+//        System.out.println(ejecutarOperacion.ejecutar("SORTEO,3258", salida, entrada));
 
     }
 
-    public String ejecutar(String mensajeAlServidor) {
+    public String ejecutar(String mensajeAlServidor, PrintWriter salida, BufferedReader entrada) {
 
         String[] parametros = mensajeAlServidor.split(",");
         String metodo = parametros[0].trim().toUpperCase();
@@ -60,10 +61,11 @@ public class EjecutarOperacion {
                 break;
 
             case "CANCELAR_CUENTA":
-
+            case "CANCELAR":
                 operacion=new CancelarCuenta();
                 break;
             case "REGISTRAR_APUESTA":
+            case "APOSTAR":
                 operacion= new RegistrarApuesta();
                 break;
             case "CONSULTAR_SALDO":
@@ -85,7 +87,7 @@ public class EjecutarOperacion {
 
 
         }
-        return operacion.ejecutar(parametros);
+        return operacion.ejecutar(parametros,salida,entrada);
     }
 
 }

@@ -9,13 +9,12 @@ public class Consultar extends TCPClientProtocol {
 
     public void ejecutar() throws IOException {
 
-        System.out.println("Ingrese la cuenta a  consultar: ");
-        String cuenta = Console.capturarStringConsola();
+        String cuenta = Console.leerDato("Ingrese la cuenta a  consultar: ");
 
         String mensajeAlServidor = "CONSULTAR_SALDO," + cuenta ;
         toNetwork.println(mensajeAlServidor);
         String fromServer=fromNetwork.readLine();
-        System.out.println(fromServer);
+        Console.mostarMensaje(fromServer);
     }
 
 

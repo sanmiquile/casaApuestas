@@ -9,13 +9,18 @@ public class Cerrar extends TCPClientProtocol {
 
     public void ejecutar() throws IOException {
 
-        System.out.println("Ingrese la cuenta a  consultar: ");
-        String cerrar = Console.capturarStringConsola();
+        String cerrar;
 
-        String mensajeAlServidor = "CERRAR," + cerrar ;
+        String mensajeAlServidor = "CERRAR" ;
         toNetwork.println(mensajeAlServidor);
         String fromServer=fromNetwork.readLine();
-        System.out.println(fromServer);
+
+        if( "Está seguro de querer cerrar las apuestas ? ".contains(fromServer) ){
+            cerrar = Console.leerDato(fromServer+ "SI/NO :");
+            toNetwork.println(cerrar);
+            fromServer=fromNetwork.readLine();
+        }
+        Console.mostarMensaje(fromServer);
     }
 
 

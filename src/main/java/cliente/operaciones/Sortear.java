@@ -5,9 +5,11 @@ import cliente.utils.Console;
 
 import java.io.IOException;
 
-public class Reportar extends TCPClientProtocol {
+public class Sortear extends TCPClientProtocol {
     public void ejecutar() throws IOException {
-        String mensajeAlServidor = "REPORTAR";
+        String numero = Console.leerDato("\nIngrese el número ganador: ");
+
+        String mensajeAlServidor = "SORTEO,"+numero;
         toNetwork.println(mensajeAlServidor);
 
         StringBuilder stringBuilder = new StringBuilder();

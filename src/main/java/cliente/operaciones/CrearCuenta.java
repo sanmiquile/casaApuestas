@@ -7,12 +7,12 @@ import java.io.IOException;
 
 public class CrearCuenta extends TCPClientProtocol {
     public void ejecutar() throws IOException {
-        System.out.println("Ingrese su nombre y apellido: ");
-        String nombre = Console.capturarStringConsola();
+
+        String nombre = Console.leerDato("Ingrese su nombre y apellido: ");
         String mensajeAlServidor = "CREAR_CUENTA," + nombre;
         toNetwork.println(mensajeAlServidor);
 
         String fromServer=fromNetwork.readLine();
-        System.out.println(fromServer);
+        Console.mostarMensaje(fromServer);
     }
 }

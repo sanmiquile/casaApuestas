@@ -2,15 +2,15 @@ package cliente;
 
 import cliente.utils.Console;
 
-public class ClienteModoText {
+public class CasaModoText {
     public static void main(String[] args) {
         Console.MODO_TEXTO = true;
-        Cliente cliente = new Cliente();
+        Casa casa = new Casa();
         try {
-            cliente.menuCliente();
+            casa.menuCliente();
         } catch (Exception e) {
             Console.mostarMensaje("ERROR INESPERADO :"+e.getMessage());
         }
-
     }
+
 }

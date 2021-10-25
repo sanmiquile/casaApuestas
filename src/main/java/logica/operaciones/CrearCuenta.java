@@ -5,6 +5,9 @@ import logica.modelos.Cuenta;
 import logica.exceptions.CuentaExisteException;
 import logica.exceptions.NumeroParametrosInvalidoException;
 
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+
 public class CrearCuenta implements Operacion{
 
     @Override
@@ -13,7 +16,7 @@ public class CrearCuenta implements Operacion{
         si esto es correcto se  crea la cuenta con sus respectivos datos y retorna un mensaje de confirmacion.
         De lo contrario se lanza una de las dos exepciones.
      */
-    public String ejecutar(String[] parametros) {
+    public String ejecutar(String[] parametros, PrintWriter salida, BufferedReader entrada) {
         try {
             validarParametros(2, parametros.length);
             Cuenta cuenta = CasaApuesta.getInstance().crearCuenta(parametros[1].trim());
