@@ -10,9 +10,11 @@ public class Reportar extends TCPClientProtocol {
         String mensajeAlServidor = "REPORTAR";
         toNetwork.println(mensajeAlServidor);
 
+        StringBuilder stringBuilder = new StringBuilder();
         fromNetwork.lines().forEach(
-                linea->System.out.println(linea)
+                linea->stringBuilder.append(linea+"\n")
         );
+        Console.mostarMensaje(stringBuilder.toString());
 //        String fromServer=fromNetwork.readLine();
 //        System.out.println(fromServer);
     }

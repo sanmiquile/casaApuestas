@@ -1,8 +1,11 @@
 package cliente.utils;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 public final class Console {
+    public static boolean MODO_TEXTO = true;
+
     public static int capturarIntConsola() {
         int opi = 0;
         Scanner lectura = new Scanner(System.in);
@@ -16,6 +19,30 @@ public final class Console {
         Scanner lectura = new Scanner(System.in);
         opi = lectura.nextDouble();
         return opi;
+    }
+
+    public static String leerDato(String mensaje) {
+        if( MODO_TEXTO ){
+            return leerDatoTexto(mensaje);
+        }
+        return leerDatoGUI(mensaje);
+    }
+
+    public static void mostarMensaje(String mensaje){
+        if( MODO_TEXTO ){
+            System.out.println(mensaje);
+        } else {
+            JOptionPane.showMessageDialog(null,mensaje);
+        }
+    }
+
+    public static String leerDatoTexto(String mensaje) {
+        System.out.println(mensaje);
+        return capturarStringConsola();
+    }
+
+    public static String leerDatoGUI(String mensaje) {
+        return JOptionPane.showInputDialog(mensaje);
     }
 
     public static String capturarStringConsola() {

@@ -3,10 +3,13 @@ package logica.operaciones;
 import logica.modelos.CasaApuesta;
 import logica.exceptions.*;
 
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+
 public class RegistrarApuesta implements Operacion{
 
     @Override
-    public String ejecutar(String[] parametros) {
+    public String ejecutar(String[] parametros, PrintWriter salida, BufferedReader entrada) {
         try {
             validarParametros(4, parametros.length);
             int numCuenta = Integer.parseInt( parametros[1].trim() );

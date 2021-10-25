@@ -5,10 +5,13 @@ import logica.exceptions.CuentaConSaldoException;
 import logica.exceptions.CuentaNoExisteException;
 import logica.exceptions.NumeroParametrosInvalidoException;
 
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+
 public class CancelarCuenta implements Operacion{
 
     @Override
-    public String ejecutar(String[] parametros) {
+    public String ejecutar(String[] parametros, PrintWriter salida, BufferedReader entrada) {
         try {
             validarParametros(2, parametros.length);
             int numCuenta=Integer.parseInt(parametros[1]);

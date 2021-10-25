@@ -17,6 +17,7 @@ public class CasaApuesta {
     private int indiceNumCuenta;
     private List<Apuesta> apuestas;
     private boolean apuestasCerradas;
+    private boolean sorteoRealizado;
 
      // se inicializan los datos
     public CasaApuesta() {
@@ -24,6 +25,7 @@ public class CasaApuesta {
         apuestas = new ArrayList<>();
         indiceNumCuenta = 0;
         apuestasCerradas = false;
+        sorteoRealizado = false;
         try {
             crearCuenta(NOMBRE_CASA);
         } catch (CuentaExisteException e) {
@@ -165,7 +167,11 @@ public class CasaApuesta {
         return stringBuilder.toString();
     }
 
-    public String sortear(String numGanador) throws FondosInsuficientesException {
+    public synchronized String sortear(String numGanador) throws FondosInsuficientesException, SorteoRealizadoException {
+        if( sorteoRealizado ){
+            throw new SorteoRealizadoException();
+        }
+
         //se debe validar  cuantos ganadores hay por  el numero ganador  y dividir el premio en partes iguales
 
         List<Apuesta> apuestasGanadorasTipoA = new ArrayList<>();
@@ -215,6 +221,7 @@ public class CasaApuesta {
         pagarGanadores(pagoTipoB,apuestasGanadorasTipoB);
         pagarGanadores(pagoTipoC,apuestasGanadorasTipoB);
 
+        sorteoRealizado = true;
 
         return "Ganadores :  Premio total \n"
                 + apuestasGanadorasTipoA.size() + " Tipo A     $" + pagoTipoA + "\n"
@@ -230,6 +237,12 @@ public class CasaApuesta {
         obterCuentaCasa().restarSaldo(pago);
     }
 
+    public boolean isApuestasCerradas() {
+        return apuestasCerradas;
+    }
 
+    public boolean hayApuestas(){
+        return apuestas.size() > 0;
+    }
 }
 
