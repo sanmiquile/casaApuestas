@@ -13,8 +13,10 @@ public class Cliente {
         TCPClient tcpClient = new TCPClient();
         do {
             TCPClientProtocol tcpClientProtocol = null;
-            String entrada = Console.leerDato("\nMENU DE OPERACIONES\n 1. Crear cuenta\t 2.Depositar\t 3.Retirar\t 4.Apostar\t 5.Cancelar Cuenta" +
-                    "\n 6.Consultar Saldo\t 7.Salir\n");
+            String entrada = Console.leerDato("\n                  MENU DE OPERACIONES   \n " +
+                                               "1. Crear cuenta\t   2.Depositar\t   3.Retirar\t   4.Apostar\n" +
+                                              " 5.Cancelar Cuenta\t   6.Consultar Saldo\t   7.Salir\n\n"+
+                                                "Ingrese la opcion deseada: ");
 
             opcion = Integer.parseInt(entrada);
 
