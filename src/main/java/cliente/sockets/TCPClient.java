@@ -3,7 +3,7 @@ package cliente.sockets;
 import java.net.Socket;
 
 public class TCPClient {
-	public static final int PORT=19421;
+	public static final int PORT=11553;
 	public static final String SERVER="8.tcp.ngrok.io";
 	private Socket clientSideSocket;
 
