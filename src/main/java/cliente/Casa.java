@@ -15,7 +15,7 @@ public class Casa {
         TCPClient tcpClient = new TCPClient();
         do {
             TCPClientProtocol tcpClientProtocol = null;
-            String entrada = Console.leerDato("\nMENU DE OPERACIONES\n 1.Cerrar apuesta\t 2.Hacer reporte\t 3.Realizar Sorteo\t 4.Salir\n");
+            String entrada = Console.leerDato("\nMENU DE OPERACIONES\n 1.Cerrar apuesta\n 2.Hacer reporte\n 3.Realizar Sorteo\n 4.Salir\n");
 
             opcion = Integer.parseInt(entrada);
 
